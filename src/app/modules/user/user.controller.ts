@@ -11,7 +11,7 @@ const createUser = async (req: Request, res: Response) => {
 
   const user = await userSingUpInDb(validatedData);
 
-  const result = await User.findById(user._id).select(
+  const result = await User.findById(user?._id).select(
     '-password -createdAt -updatedAt -__v',
   );
 
