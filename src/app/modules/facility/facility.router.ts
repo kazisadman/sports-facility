@@ -1,10 +1,17 @@
 import express from 'express';
-import { createFacility, updateFacility } from './facility.controller';
+import {
+  createFacility,
+  deleteFacility,
+  getAllFacility,
+  updateFacility,
+} from './facility.controller';
 import verifyJWT from '../../middlewares/auth';
 
 const router = express.Router();
 
-router.post('/facility',verifyJWT, createFacility);
-router.put('/facility/:id',verifyJWT, updateFacility);
+router.post('/', verifyJWT, createFacility);
+router.put('/:id', verifyJWT, updateFacility);
+router.delete('/:id', verifyJWT, deleteFacility);
+router.get('/', getAllFacility);
 
 export const FacilityRouter = router;

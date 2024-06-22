@@ -13,4 +13,25 @@ const updateFacilityInDb = async (id: string, payload: TFacility) => {
   return updateFacility;
 };
 
-export const facilityService = { createFacilityInDb, updateFacilityInDb };
+const deleteFacilityFromDb = async (id: string) => {
+  const deleteFacility = await Facility.findByIdAndUpdate(
+    id,
+    { isDeleted: true },
+    {
+      new: true,
+    },
+  );
+  return deleteFacility;
+};
+
+const getAllFacilityFromDb = async () => {
+  const getAll = await Facility.find().select('-createdAt -updatedAt -__v');
+  return getAll;
+};
+
+export const facilityService = {
+  createFacilityInDb,
+  updateFacilityInDb,
+  deleteFacilityFromDb,
+  getAllFacilityFromDb,
+};
