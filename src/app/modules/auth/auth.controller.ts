@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import { authService } from './auth.service';
 import { ApiResponse } from '../../utils/sendResponse';
+import handleAsync from '../../utils/handleAsync';
 
-const loginUser = async (req: Request, res: Response) => {
+const loginUser = handleAsync(async (req: Request, res: Response) => {
   const result = await authService.loginUser(req.body);
 
   res.cookie('Bearer', result?.accessToken, {
@@ -20,6 +21,6 @@ const loginUser = async (req: Request, res: Response) => {
         result?.accessToken,
       ),
     );
-};
+});
 
 export { loginUser };

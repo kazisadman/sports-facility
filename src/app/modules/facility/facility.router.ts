@@ -9,9 +9,9 @@ import verifyJWT from '../../middlewares/auth';
 
 const router = express.Router();
 
-router.post('/', verifyJWT, createFacility);
-router.put('/:id', verifyJWT, updateFacility);
-router.delete('/:id', verifyJWT, deleteFacility);
+router.post('/', verifyJWT('admin'), createFacility);
+router.put('/:id', verifyJWT('admin'), updateFacility);
+router.delete('/:id', verifyJWT('admin'), deleteFacility);
 router.get('/', getAllFacility);
 
 export const FacilityRouter = router;

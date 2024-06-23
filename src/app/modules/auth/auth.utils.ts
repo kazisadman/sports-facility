@@ -4,6 +4,7 @@ import config from '../../config';
 export const generateAccessToken = (jwtPayload: {
   email: string;
   password: string;
+  role?:string
 }) => {
   return jwt.sign(jwtPayload, config.access_token_secret as string, {
     expiresIn: config.access_token_expire,

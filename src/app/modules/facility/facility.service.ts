@@ -10,6 +10,7 @@ const updateFacilityInDb = async (id: string, payload: TFacility) => {
   const updateFacility = await Facility.findByIdAndUpdate(id, payload, {
     new: true,
   });
+
   return updateFacility;
 };
 

@@ -7,12 +7,21 @@ const loginUser = async (payload: TLoginUser) => {
 
   const matchedUser = await User.findOne({ email });
 
-  const isValidPassword = await User.isPasswordCorrect(password,matchedUser?.password)
+  const isValidPassword = await User.isPasswordCorrect(
+    password,
+    matchedUser?.password,
+  );
+
+  const jwtPayload = {
+    email: email,
+    password: password,
+    role: matchedUser?.role,
+  };
 
   if (isValidPassword) {
-    const accessToken = generateAccessToken(payload);
+    const accessToken = generateAccessToken(jwtPayload);
 
-    const user =await User.findById(matchedUser?._id).select(
+    const user = await User.findById(matchedUser?._id).select(
       '-password -createdAt -updatedAt -__v',
     );
     return { accessToken, user };

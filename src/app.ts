@@ -15,6 +15,15 @@ app.use('/api/auth', AuthRouter);
 app.use('/api/facility', FacilityRouter);
 app.use('/api', bookingRouter);
 
+// Global "Not Found" handler
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        statusCode: 404,
+        message: "Not Found"
+    });
+});
+
 const getAController = (req: Request, res: Response) => {
   res.send('Server is Running');
 };
