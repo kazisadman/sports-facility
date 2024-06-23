@@ -13,7 +13,7 @@ app.use(cors());
 // application routes
 app.use('/api/auth', AuthRouter);
 app.use('/api/facility', FacilityRouter);
-app.use('/api/check-availability', bookingRouter);
+app.use('/api', bookingRouter);
 
 const getAController = (req: Request, res: Response) => {
   res.send('Server is Running');

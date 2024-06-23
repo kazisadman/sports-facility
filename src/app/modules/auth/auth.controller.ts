@@ -5,7 +5,7 @@ import { ApiResponse } from '../../utils/sendResponse';
 const loginUser = async (req: Request, res: Response) => {
   const result = await authService.loginUser(req.body);
 
-  res.cookie('accessToken', result?.accessToken, {
+  res.cookie('Bearer', result?.accessToken, {
     secure: true,
     httpOnly: true,
   });
