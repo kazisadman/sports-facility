@@ -47,11 +47,11 @@ const updateFacility = handleAsync(async (req: Request, res: Response) => {
 });
 
 const deleteFacility = handleAsync(async (req: Request, res: Response) => {
-  const facilityData = req.body;
+  const { id } = req.params;
 
-    const validatedData = FacilityValidationSchema.parse(facilityData);
 
-    const facility = await facilityService.createFacilityInDb(validatedData);
+    const facility = await facilityService.deleteFacilityFromDb(id)
+    
     if (!facility) {
       return res.status(404).json(new DbError());
     }
@@ -66,19 +66,13 @@ const deleteFacility = handleAsync(async (req: Request, res: Response) => {
 });
 
 const getAllFacility = handleAsync(async (req: Request, res: Response) => {
-  const facilityData = req.body;
 
-    const validatedData = FacilityValidationSchema.parse(facilityData);
 
-    const facility = await facilityService.createFacilityInDb(validatedData);
+    const result = await facilityService.getAllFacilityFromDb();
 
-    if (!facility) {
+    if (!result) {
       return res.status(404).json(new DbError());
     }
-
-    const result = await Facility.findById(facility?._id).select(
-      '-createdAt -updatedAt -__v',
-    );
 
     res
       .status(200)

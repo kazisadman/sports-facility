@@ -11,12 +11,13 @@ const checkAvailability = handleAsync(async (req: Request, res: Response) => {
     const today = new Date();
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
 
     return `${yyyy}-${mm}-${dd}`;
   };
 
   const queryDate = req.query.date || getTodayDate();
+
 
   const bookings = await Booking.find();
 
@@ -25,7 +26,6 @@ const checkAvailability = handleAsync(async (req: Request, res: Response) => {
 
   const startTime = new Date(`${queryDate}T${totalAvaliableHour.startTime}`);
   const endTime = new Date(`${queryDate}T${totalAvaliableHour.endTime}`);
-
   for (
     let time = startTime;
     time < endTime;
@@ -36,8 +36,8 @@ const checkAvailability = handleAsync(async (req: Request, res: Response) => {
     slotEndTime.setHours(slotEndTime.getHours() + 2);
 
     const isAvailable = !bookings.some((booking) => {
-      const bookingStartTime = new Date(`${queryDate}T${booking.startTime}`);
-      const bookingEndTime = new Date(`${queryDate}T${booking.endTime}`);
+      const bookingStartTime = new Date(`${booking.date}T${booking.startTime}`);
+      const bookingEndTime = new Date(`${booking.date}T${booking.endTime}`);
       return bookingStartTime < slotEndTime && bookingEndTime > slotStartTime;
     });
 

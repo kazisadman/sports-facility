@@ -10,24 +10,24 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
+const getAController = (req: Request, res: Response) => {
+  res.send('Server is Running');
+};
+
+app.get('/', getAController);
+
 // application routes
 app.use('/api/auth', AuthRouter);
 app.use('/api/facility', FacilityRouter);
 app.use('/api', bookingRouter);
 
 // Global "Not Found" handler
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        statusCode: 404,
-        message: "Not Found"
-    });
+app.use((req: Request, res: Response) => {
+  res.status(404).json({
+    success: false,
+    statusCode: 404,
+    message: 'Not Found',
+  });
 });
-
-const getAController = (req: Request, res: Response) => {
-  res.send('Server is Running');
-};
-
-app.get('/', getAController);
 
 export default app;
