@@ -14,7 +14,12 @@ const verifyJWT = (userRole: string) => {
         config.access_token_secret as string,
       );
 
-      const { email, role } = decodedToken;
+      type jwtPayload = {
+        email: string;
+        role: string;
+      };
+
+      const { email, role } = decodedToken as jwtPayload;
 
       const user = await User.findOne({ email }).select('-password');
 

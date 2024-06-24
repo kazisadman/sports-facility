@@ -60,11 +60,11 @@ const createBooking = handleAsync(async (req: Request, res: Response) => {
   const bookingData = req.body;
   const facility = await Facility.findById(bookingData.facility);
 
-  const pricePerHour = facility?.pricePerHour;
+  const pricePerHour = facility?.pricePerHour ?? 0;
   const startTime = bookingData?.startTime;
   const endTime = bookingData?.endTime;
 
-  const totalAmount = (parseInt(endTime) - parseInt(startTime)) * pricePerHour;
+  const totalAmount:number = (parseInt(endTime) - parseInt(startTime)) * pricePerHour;
 
   const existingBookings = await Booking.find({
     facility: bookingData.facility,
