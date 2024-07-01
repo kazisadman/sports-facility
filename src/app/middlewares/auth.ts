@@ -7,7 +7,19 @@ import handleAsync from '../utils/handleAsync';
 const verifyJWT = (userRole: string) => {
   return handleAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-      const token = req.headers?.cookie?.split('=')[1];
+
+      const authHeader = req.headers.authorization;
+
+      if (!authHeader) {
+        res.status(403).json({
+          success: false,
+          statusCode: 403,
+          message: 'Access denied',
+        });
+      }
+
+      const token = authHeader?.split(' ')[1]
+
 
       const decodedToken = jwt.verify(
         token as string,

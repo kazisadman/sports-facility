@@ -6,7 +6,7 @@ import handleAsync from '../../utils/handleAsync';
 const loginUser = handleAsync(async (req: Request, res: Response) => {
   const result = await authService.loginUser(req.body);
 
-  res.cookie('Bearer', result?.accessToken, {
+  res.cookie('token', result?.accessToken, {
     secure: true,
     httpOnly: true,
   });
