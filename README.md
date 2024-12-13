@@ -1,5 +1,5 @@
 
-# Sweat Zone - A sports facility booking web app
+# Sweat Zone - A sports facility booking web app.
 
 **Description:** 
 
